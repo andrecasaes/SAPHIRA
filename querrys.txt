@@ -30,13 +30,14 @@ CREATE TABLE `saphira_usuario` (
  CONSTRAINT `fk_usuarioevento` FOREIGN KEY (`ID_evento`) REFERENCES `saphira_evento` (`ID_evento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `saphira_pessoa` (
- `ID_pessoa` int(11) NOT NULL AUTO_INCREMENT,
- `Num_palestras` int(11) DEFAULT NULL,
+CREATE TABLE `saphira_evento` (
+ `ID_evento` int(11) NOT NULL AUTO_INCREMENT,
  `Nome` varchar(100) DEFAULT NULL,
- `Num_usp` bigint(11) DEFAULT NULL,
- PRIMARY KEY (`ID_pessoa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ `Cores` varchar(100) DEFAULT NULL,
+ `Nome_logo` varchar(100) DEFAULT NULL,
+ `Particula` tinyint(1) DEFAULT NULL,
+ PRIMARY KEY (`ID_evento`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
 
 CREATE TABLE `saphira_pagina` (
  `ID_pagina` int(11) NOT NULL AUTO_INCREMENT,

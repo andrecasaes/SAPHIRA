@@ -9,6 +9,7 @@ if (isset($_POST["Enviar"])) {
   if (mysqli_num_rows($result) >= 1) {
     $row = mysqli_fetch_assoc($result);
     $_SESSION['idEvento'] = $row["ID_evento"];
+    $_SESSION['Usuario'] = $_POST["Login"];
     $_SESSION['Logado'] = true; //Define que o usuario está logando, será usado em todas as paginas no arquivo logado.php
     $sql = "SELECT * FROM saphira_evento WHERE ID_evento='".$row["ID_evento"]."'";
     // echo $sql;
