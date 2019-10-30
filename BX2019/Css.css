@@ -1,0 +1,215 @@
+@font-face {
+  font-family: BX;
+  src: url(Fonte/BXComp.ttf);
+}
+body{
+  overflow: hidden;
+}
+#particles-js{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+#logo{
+  padding-bottom: 25px;
+  padding-left:5%; 
+  padding-right:5%;
+  max-width: 90% !important;
+  width: 50%;
+}
+
+.InputBox{
+
+    width: 200px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    align-items: center;
+    left: 50%;
+    margin-left: -125px;
+    position: relative;
+    align-content: center;
+
+}
+
+textarea {
+    border: 2px solid #555555; 
+    -webkit-box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    -moz-box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    padding: 10px;
+    background: white;
+    margin: 0 0 10px 0;
+    outline: none;
+    width: 90%;
+    height: auto;
+    min-height: 310px;
+    resize: vertical;
+    overflow: auto; 
+    overflow-y: auto;
+    word-wrap:break-word;
+    float: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+textarea:hover{
+  opacity: 0.95;
+}
+
+label{
+  font-family: 'K2D', sans-serif;
+  padding: 5px;
+}
+
+p{
+  /*font-family: 'Source Sans Pro', sans-serif;*/
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: bold;
+  color: white;
+  text-align:center;
+}
+canvas.drawing, canvas.drawingBuffer {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+h1{
+  color: white;
+  font-family: 'BX';
+  text-align: center;
+
+}
+.h1SelePales{
+  font-size: 4em;
+  text-transform: uppercase;
+}
+.h1Titulos{
+  font-style: italic;
+  font-size: 3em;
+  text-transform: uppercase;
+}
+.h1Login{
+  font-size: 5em;
+}
+.ButPart{
+  width: 25%;
+  margin: 3px;
+}
+.headerImg{
+  width: 20%;
+}
+.headerImgPlano{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 70%;
+}
+.h1Relatorio{
+  text-transform: uppercase;
+  font-size: 2em;
+
+}
+@media only screen and (max-width: 600px) {
+  .h1Login{
+  	font-size: 250%;
+  }
+  .h1Titulos{
+    font-style: italic;
+    font-size: 2em;
+  }
+  .BemVindo{
+    font-style: bold;
+    font-size: 3em;
+  }
+  .nusp{
+    width: 30%;
+  }
+  .login{
+  	width: 30%;
+  }
+  .senha{
+  	width: 30%;
+  }
+  #logo{
+    width: 100%;
+  }
+  .ButPart{
+    width: 75%;
+    margin: 3px;
+  }
+  .headerImg {
+    width: 50%;
+  }
+}
+
+.header img {
+    float: left;
+}
+.header h1 {
+    position: static;
+}
+.header{
+  min-height: 50px;
+}
+textarea{
+  resize: none;
+}
+input,select{
+  background-color: unset;
+  font-family: 'Chakra Petch', sans-serif;
+  color: white;
+  border: 1px solid white;
+  text-align: center;
+  text-decoration: none;
+  border-radius:3px;
+  display: inline-block;
+  padding: 10px;
+  /*height: 50%;*/
+  /*width: 80%;*/
+}
+input:hover {
+  background-color: white;
+  transition: all 0.2s ease-out;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  transition-delay: initial;
+}
+.Sortear{
+  font-size: 50px;
+  height: 50%;
+  width: 80%;
+}
+optgroup{
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+option{
+  color: white;
+}
+.brindesOP{
+  background-color: purple;
+}
+.btBrinde{
+  width: 15%;
+  height: 50px;
+  font-size: 1.5em;
+  min-width: 150px;
+  margin: 5px;
+}
+body {
+  overscroll-behavior: contain;
+}

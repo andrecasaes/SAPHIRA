@@ -1,0 +1,101 @@
+SHOW CREATE TABLE saphira_evento
+
+CREATE TABLE `saphira_evento` (
+ `ID_evento` int(11) NOT NULL AUTO_INCREMENT,
+ `Nome` varchar(100) DEFAULT NULL,
+ `Cores` varchar(100) DEFAULT NULL,
+ `Nome_logo` varchar(100) DEFAULT NULL,
+ `Particula` boolean,
+ PRIMARY KEY (`ID_evento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `saphira_subdivisoes` (
+  `ID_subdivisoes` int(11) NOT NULL AUTO_INCREMENT,
+ `Nome` varchar(100) DEFAULT NULL,
+ `Data` date DEFAULT NULL,
+ `ID_evento` int(11) DEFAULT NULL,
+ `Quantidade_presentes` int(11) DEFAULT '0',
+ PRIMARY KEY (`ID_subdivisoes`),
+ KEY `fk_pessoaevento` (`ID_evento`),
+ CONSTRAINT `fk_pessoaevento` FOREIGN KEY (`ID_evento`) REFERENCES `saphira_evento` (`ID_evento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;    
+
+
+CREATE TABLE `saphira_usuario` (
+ `Login` varchar(100) NOT NULL,
+ `Senha` varchar(25) NOT NULL,
+ `ID_evento` int(11) DEFAULT NULL,
+ KEY `fk_usuarioevento` (`ID_evento`),
+ CONSTRAINT `fk_usuarioevento` FOREIGN KEY (`ID_evento`) REFERENCES `saphira_evento` (`ID_evento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `saphira_pessoa` (
+ `ID_pessoa` int(11) NOT NULL AUTO_INCREMENT,
+ `Num_palestras` int(11) DEFAULT NULL,
+ `Nome` varchar(100) DEFAULT NULL,
+ `Num_usp` bigint(11) DEFAULT NULL,
+ PRIMARY KEY (`ID_pessoa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `saphira_pagina` (
+ `ID_pagina` int(11) NOT NULL AUTO_INCREMENT,
+ `Nome` varchar(100) DEFAULT NULL,
+ PRIMARY KEY (`ID_pagina`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `saphira_brinde` (
+ `ID_brinde` int(11) NOT NULL AUTO_INCREMENT,
+ `Nome` varchar(100) DEFAULT NULL,
+ `Quantidade` int(11) DEFAULT NULL,
+ `ID_evento` int(11) DEFAULT NULL,
+ PRIMARY KEY (`ID_brinde`),
+ KEY `fk_brindeevento` (`ID_evento`),
+ CONSTRAINT `fk_brindeevento` FOREIGN KEY (`ID_evento`) REFERENCES `saphira_evento` (`Id_evento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `saphira_pag_evento` (
+ `ID_pagina` int(11) NOT NULL,
+ `ID_evento` int(11) NOT NULL,
+ PRIMARY KEY (`ID_pagina`,`ID_evento`),
+ KEY `fk_pagina` (`ID_pagina`),
+ KEY `fk_evento` (`ID_evento`),
+ CONSTRAINT `fk_evento` FOREIGN KEY (`ID_evento`) REFERENCES `saphira_evento` (`ID_evento`),
+ CONSTRAINT `fk_pagina` FOREIGN KEY (`ID_pagina`) REFERENCES `saphira_pagina` (`ID_pagina`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `saphira_presenca` (
+ `ID_pessoa` int(11) NOT NULL,
+ `ID_subdivisoes` int(11) NOT NULL,
+ PRIMARY KEY (`ID_pessoa`,`ID_subdivisoes`),
+ KEY `fk_presencasubdivisoes` (`ID_subdivisoes`),
+ KEY `fk_presencapessoa` (`ID_pessoa`),
+ CONSTRAINT `fk_presencapessoa` FOREIGN KEY (`ID_pessoa`) REFERENCES `saphira_pessoa` (`ID_pessoa`),
+ CONSTRAINT `fk_presencasubdivisoes` FOREIGN KEY (`ID_subdivisoes`) REFERENCES `saphira_subdivisoes` (`ID_subdivisoes`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `saphira_valida_brinde` (
+ `ID_brinde` int(11) NOT NULL,
+ `ID_pessoa` int(11) NOT NULL,
+ PRIMARY KEY (`ID_brinde`,`ID_pessoa`),
+ KEY `fk_vbpessoa` (`ID_pessoa`),
+ KEY `fk_vbbrinde` (`ID_brinde`),
+ CONSTRAINT `fk_vbpessoa` FOREIGN KEY (`ID_pessoa`) REFERENCES `saphira_pessoa` (`ID_pessoa`),
+ CONSTRAINT `fk_vbbrinde` FOREIGN KEY (`ID_brinde`) REFERENCES `saphira_brinde` (`ID_brinde`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `saphira_camisa` (
+ `ID_brinde` int(11) NOT NULL,
+ `ID_pessoa` int(11) NOT NULL,
+ `Tamanho` varchar(100),
+ PRIMARY KEY (`ID_brinde`,`ID_pessoa`),
+ KEY `fk_camisapessoa` (`ID_pessoa`),
+ KEY `fk_camisabrinde` (`ID_brinde`),
+ CONSTRAINT `fk_camisapessoa` FOREIGN KEY (`ID_pessoa`) REFERENCES `saphira_pessoa` (`ID_pessoa`),
+ CONSTRAINT `fk_camisabrinde` FOREIGN KEY (`ID_brinde`) REFERENCES `saphira_brinde` (`ID_brinde`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
