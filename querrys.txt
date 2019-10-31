@@ -100,3 +100,14 @@ CREATE TABLE `saphira_camisa` (
  CONSTRAINT `fk_camisapessoa` FOREIGN KEY (`ID_pessoa`) REFERENCES `saphira_pessoa` (`ID_pessoa`),
  CONSTRAINT `fk_camisabrinde` FOREIGN KEY (`ID_brinde`) REFERENCES `saphira_brinde` (`ID_brinde`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `saphira_quantidade_presenca` (
+ `ID_pessoa` int(11) NOT NULL,
+ `ID_evento` int(11) NOT NULL,
+ `Quantidade_presenca` int(11) NOT NULL DEFAULT '0',
+ PRIMARY KEY (`ID_pessoa`,`ID_evento`),
+ KEY `fk_qppessoa` (`ID_pessoa`),
+ KEY `fk_qpevento` (`ID_evento`),
+ CONSTRAINT `fk_qppessoa` FOREIGN KEY (`ID_pessoa`) REFERENCES `saphira_pessoa` (`ID_pessoa`),
+ CONSTRAINT `fk_qpevento` FOREIGN KEY (`ID_evento`) REFERENCES `saphira_evento` (`ID_evento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
