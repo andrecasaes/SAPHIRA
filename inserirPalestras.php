@@ -33,7 +33,7 @@ if (isset($_POST['NomesPalestras'])) {
 				//Palestra que ainda n existem no banco
 				$sql="INSERT INTO `saphira_subdivisoes`(`Nome`, `Data`, `ID_evento`) VALUES ('".$aNomes[$x]."','".$novaData."','".$_SESSION['idEvento']."')"; 
     				$result = mysqli_query($link, $sql);
-       			echo "<p>Brinde cadastrado! (".$aNomes[$x]." - ".$novaData.")</p>";
+       			echo "<p>Atividade cadastrada! (".$aNomes[$x]." - ".$novaData.")</p>";
 			}
 		}
 	}else{

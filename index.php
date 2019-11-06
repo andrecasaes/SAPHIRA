@@ -40,7 +40,8 @@ if (isset($_POST["Enviar"])) {
     <!-- Precisa para que os inputs não fiquem com cor diferente do fundo! -->
 <?php include 'Genericas/estilo.php'; ?>
 </head>
-  <body class="bodyLaudo" style="background-color: purple;">
+  <body class="bodyLaudo" style="background-color: #8A20CB;">
+    <div id="particles-js" ></div>
     <div align="center">
       <img src="logo.png" id = "logo" alt="logo da SSI" >
       <?php
@@ -65,5 +66,6 @@ if (isset($_POST["Enviar"])) {
       </div>
       </form>
     </div>
+<?php include 'Genericas/insereParticulas.php';?>
   </body>
 </html>
