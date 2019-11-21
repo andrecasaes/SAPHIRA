@@ -26,25 +26,32 @@ if (isset($_POST['subdivisao'])) {
 <body class="bodyLaudo" style="background-color: <?php echo $_SESSION['corfundo']; ?>;">
     <div id="particles-js" ></div>
 <?php include 'Genericas/insereParticulas.php';?>
-    <div class="header">
-        <img src="<?php echo $_SESSION['logo']; ?>" alt="Logo" width="100" onclick="volta()" style="cursor: pointer;">
-<?php
-$sql = "SELECT * FROM saphira_subdivisoes WHERE ID_subdivisoes='".$_SESSION['subdivisao']."'";
-$result = mysqli_query($link, $sql);
-if (mysqli_num_rows($result) >= 1) {
-    $row = mysqli_fetch_assoc($result)
-    ?><h1 class="h1Titulos"><?php echo $row['Nome']?> <label id="cont">(<?php echo $row['Quantidade_presentes']?>)</label></h1><?php 
-}
-?>
+
+
+    <div style="text-align: center;">
+      <img src="<?php echo $_SESSION['logo'];?>"  class="headerImg" alt="logo" onclick="volta()" style="cursor: pointer;">
     </div>
+
+    <div class="page-wrapper font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <?php
+                    $sql = "SELECT * FROM saphira_subdivisoes WHERE ID_subdivisoes='".$_SESSION['subdivisao']."'";
+                    $result = mysqli_query($link, $sql);
+                    if (mysqli_num_rows($result) >= 1) {
+                        $row = mysqli_fetch_assoc($result)
+                        ?><h1 class="title" style="margin-bottom: 0;"><?php echo $row['Nome']?></h1>
+                        <h2 style="color: #cfcfcf; text-align: center; margin-top: 0; margin-bottom: 30px;"> <?php echo $row['Quantidade_presentes']?> presentes</h2>
+                        <?php 
+                    }
+                    ?>
+
     <form id="form" method="POST">
-        <div style="width: 100%; text-align: center;">
-            <label style="font-weight: bold; color: white;font-family: 'BX';">GRUPO  
-                <input type="number" name="cod" id="cod" autofocus>
-                <input type="submit" name="Enviar" value="Enviar" >
-            </label>
+        <div style="width: 100%; text-align: center;"> 
+            <input type="number" name="cod" id="cod" autofocus class="input--style-4 inputTextoBonito" style="background-color: #dedede;">
+            <input type="submit" name="Enviar" value="Enviar" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>;">
         </div>
-        <hr>
         <div style="text-align: center;">
         <?php
 if (isset($_POST['cod']) && isset($_POST['Enviar']) && !isset($_POST['nome'])) {
@@ -69,18 +76,18 @@ if (isset($_POST['cod']) && isset($_POST['Enviar']) && !isset($_POST['nome'])) {
             $sql="UPDATE `saphira_subdivisoes` SET `Quantidade_presentes`= Quantidade_presentes+1 WHERE `ID_subdivisoes` = '".$_SESSION['subdivisao']."'";
             $result = mysqli_query($link, $sql);
             $aux = $row['Num_palestras']+1;
-            $_SESSION['JaEntraram'] = " <p>".$_POST['cod']."-".$row['Nome']." (".$aux.")</p>" . $_SESSION['JaEntraram'];
-            ?><h1 class="BemVindo">Bom Evento!! <?php echo $row['Nome'];?></h1><?php
+            $_SESSION['JaEntraram'] = " <h3 class=\"nomeLista\">Nome: ".$row['Nome']."</h3> <h3 class=\"nuspLista\">".$_POST['cod']."</h3> <h3 class=\"palestrasLista\" style=\"color:".$_SESSION['corfundo'].";\">".$aux ." presenças</h3>".$_SESSION['JaEntraram'];
+            ?><h1 class="BemVindo">Bom Evento, <?php echo $row['Nome'];?>!</h1><?php
 
         }else{//Já possui presença nessa palestra =/
-            ?><h1 class="BemVindo">Pessoa já tem presença! <?php echo $row['Nome'];?></h1><?php
+            ?><h1 class="BemVindo">Ops! <?php echo $row['Nome'];?> já possui presença.</h1><?php
         }
     }else{ //Se nao existir numero cadastrado!
         ?>
             <input type="hidden" name="nome" id="nome" class="nusp"/>
             <script type="text/javascript">
                 var txt;
-                if (confirm("Numero USP nao encontrado! Cadastrar?")) {
+                if (confirm("Número USP não encontrado! Cadastrar?")) {
                 var person = prompt("Digite o nome!");
                     document.getElementById('nome').value = person;
                     document.getElementById('cod').value = "<?php echo $_POST['cod'];?>";
@@ -106,14 +113,23 @@ if (isset($_POST['cod']) && isset($_POST['Enviar']) && !isset($_POST['nome'])) {
         $sql="UPDATE `saphira_quantidade_presenca` SET `Quantidade_presenca`= Quantidade_presenca+1 WHERE `ID_pessoa` = '".$row['ID_pessoa']."' and `ID_evento` = '".$_SESSION['idEvento']."'";
         $result = mysqli_query($link, $sql);
         $aux = $row['Num_palestras']+1;
-        $_SESSION['JaEntraram'] = " <p>".$_POST['cod']."-".$row['Nome']." (".$aux.")</p>" . $_SESSION['JaEntraram'];
-        ?><h1 class="BemVindo">Usuario cadastrado e inserido! <?php echo $row['Nome'];?></h1><?php
+        $_SESSION['JaEntraram'] = " <h3 class=\"nomeLista\">Nome: ".$row['Nome']."</h3> <h3 class=\"nuspLista\">".$_POST['cod']."</h3> <h3 class=\"palestrasLista\" style=\"color:".$_SESSION['corfundo'].";\">".$aux ." presenças</h3>".$_SESSION['JaEntraram'];
+        ?><h1 class="BemVindo">Usuário <?php echo $row['Nome'];?> cadastrado e inserido no sistema!</h1><?php
     }
 }
-echo $_SESSION['JaEntraram'];
+    echo $_SESSION['JaEntraram'];
 ?>     
         </div>
     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 <?php include 'Genericas/voltar.php'; ?>
 </body>
 </html>

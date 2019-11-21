@@ -1,17 +1,26 @@
+<style type="text/css">
+	textarea {
+		border: 2px;
+		border-color: grey;
+	}
+
+	.nuspLista {
+		color: <?php echo $_SESSION['corfundo']; ?>;
+	}
+</style>
+
 <h1 class="BemVindo">Cadastrar brindes</h1>
 <table width="100%">
 	<tr>
-	  <th><p>Nomes dos brindes</p></th>
-	  <th><p>Quantidade</p></th>
+	  <th><p class="nuspLista">Nomes dos brindes</p></th>
+	  <th><p class="nuspLista">Quantidade</p></th>
 	</tr>
 	<tr>
-	  <td><textarea name="NomesBrindes" autocomplete="off"></textarea></td>
-	  <td><textarea name="Quantidades" autocomplete="off"></textarea></td>
+	  <td><textarea name="NomesBrindes" autocomplete="off" class="input--style-4 inputTextoBonito" style="background-color: #dedede; width: 70%;"></textarea></td>
+	  <td><textarea name="Quantidades" autocomplete="off" class="input--style-4 inputTextoBonito" style="background-color: #dedede; width: 70%;"></textarea></td>
 	</tr>
 </table>
-<input type="submit" name="Inserir" value="Inserir">
-<hr>
-
+<input type="submit" name="Inserir" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>; width: 80%;" value="Inserir">
 
 <?php 
 if (isset($_POST['NomesBrindes'])) {
@@ -27,12 +36,12 @@ if (isset($_POST['NomesBrindes'])) {
 			  	//Se ja existe, atualiza o banco
 			    $sql="UPDATE `saphira_brinde` SET `Quantidade`= '".$aQuanti[$x]."' WHERE `Nome` = '".$aNomes[$x]."'";
        				$result = mysqli_query($link, $sql);
-       			echo "<p>Cadastro atualizado! (".$aNomes[$x]." || ".$row['Quantidade']." -> ".$aQuanti[$x].")</p>";
+       			echo "<p class=\"nomeLista\">Cadastro atualizado! (".$aNomes[$x]." || ".$row['Quantidade']." -> ".$aQuanti[$x].")</p>";
 			}else{
 				//Brindes que ainda n existem no banco
 				$sql="INSERT INTO `saphira_brinde`(`Nome`, `Quantidade`, `ID_evento`) VALUES ('".$aNomes[$x]."','".$aQuanti[$x]."','".$_SESSION['idEvento']."')"; 
     				$result = mysqli_query($link, $sql);
-       			echo "<p>Brinde cadastrado! (".$aNomes[$x]." - ".$aQuanti[$x].")</p>";
+       			echo "<p class=\"nomeLista\">Brinde cadastrado! (".$aNomes[$x]." - ".$aQuanti[$x].")</p>";
 			}
 		}
 	}else{

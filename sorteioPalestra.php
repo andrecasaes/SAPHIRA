@@ -11,7 +11,9 @@
     <link rel="stylesheet" type="text/css" href="Css.css">
     <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <title>Menu</title>
+    <link href="select2.css" rel="stylesheet" media="all">
+
+    <title>Selecionar</title>
     <!-- Precisa para que os inputs não fiquem com cor diferente do fundo! -->
 <?php include 'Genericas/estilo.php'; ?>
 </head>
@@ -20,34 +22,42 @@
     <div style="text-align: center;">
       <img src="<?php echo $_SESSION['logo'];?>"  class="headerImg" alt="logo" onclick="volta()" style="cursor: pointer;">
     </div>
-<?php include 'Genericas/insereParticulas.php';?>
+    </div>
 
-<div class="page-wrapper font-poppins">
+    <div class="page-wrapper font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
-                    <h2 class="title">Menu</h2>
-                    <form method="POST" action="leitura.php" id="form">
-                        <input type="button" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>;" onclick="location.href='presenca.php';" value="Presenca"/>
+                    <h2 class="title">Sorteio</h2>
+                    <form method="POST" action="sorteio.php" id="form">
+                    <div class="input-group" style="margin-bottom: 80px;">
+                      <div class="rs-select2 js-select-simple select--no-search">
+                      <select name="subdivisao" style="width: 25%" class="select">
                         <?php
-                          //Exibe os botões para as paginas escolhidas
-                          $sql = "SELECT * FROM saphira_pag_evento as A inner Join saphira_pagina as B on A.ID_pagina = B.ID_pagina WHERE ID_evento='".$_SESSION['idEvento']."'";
+                          //Pega do banco todas as etapas e exibe em um select
+                          $sql = "SELECT * FROM saphira_subdivisoes WHERE ID_evento='".$_SESSION['idEvento']."'";
                           $result = mysqli_query($link, $sql);
                           if (mysqli_num_rows($result) >= 1) {
                             while($row = mysqli_fetch_assoc($result)) {
-                              if($row['Nome'] == "Sorteio") {
-                                  ?><input type="button" class="btn btn--radius-2" onclick="location.href='sorteioPalestra';" value="<?php echo $row['Nome'];?>" style="background-color: <?php echo $_SESSION['corfundo']?>;"/><?php
-                              } else {
-                                  ?><input type="button" class="btn btn--radius-2" onclick="location.href='<?php echo $row['Endereco'];?>';" value="<?php echo $row['Nome'];?>" style="background-color: <?php echo $_SESSION['corfundo']?>;"/><?php
-                              }
+                              ?><option value="<?php echo $row['ID_subdivisoes'];?>"><?php echo $row['Nome'];?></option><?php
                             }
                           }
                         ?>
+                        </select>
+                        <div class="select-dropdown"></div>
+                        </div>
+                    </div>
+                        <input type="submit" name="Enviar" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>;" value="Selecionar"/>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
+<?php include 'Genericas/insereParticulas.php';?>
+
+<script src="jquery.js"></script>
+<script src="select2.js"></script>
+<script src="gloBal.js"></script>
   </body>
 </html>

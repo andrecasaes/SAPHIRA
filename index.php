@@ -36,14 +36,14 @@ if (isset($_POST["Enviar"])) {
     <link rel="stylesheet" type="text/css" href="Css.css">
     <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <title>Logon</title>
+    <title>Login</title>
     <!-- Precisa para que os inputs não fiquem com cor diferente do fundo! -->
 <?php include 'Genericas/estilo.php'; ?>
 </head>
-  <body class="bodyLaudo" style="background-color: #8A20CB;">
+  <body class="bodyLaudo" style="background-color: #111;">
     <div id="particles-js" ></div>
     <div align="center">
-      <img src="logo.png" id = "logo" alt="logo da SSI" >
+      <img src="logo.png" id = "logo" alt="logo da SAPHIRA">
       <?php
       //Em caso de erro o porgrama retorna para a tela de login e exibe o erro para o usuario =)
 
@@ -54,17 +54,17 @@ if (isset($_POST["Enviar"])) {
     </div>
     <form method="POST">
     <div style="text-align: center;">
-     <div class="InputBox">
-      <label style="color: white;">Login <input class="login" type="text" name="Login"></label>
-     </div>
-      <div class="InputBox">
-      <label style="color: white;">Senha <input class="senha" type="password" name="Senha"></label>
-      </div>
-      <div class="InputBox">
+     
+      <input class=".input--style-4 inputTextoBonito" style="max-width: 350px;" type="text" name="Login" placeholder="Login">
+
+      <input class=".input--style-4 inputTextoBonito" style="max-width: 350px;" type="password" name="Senha" placeholder="Senha">
+
       <input type="hidden" name="Erro">
-      <input type="submit" name="Enviar">
-      </div>
-      </form>
+        
+      <input type="submit" class="btn btn--radius-2 btn--purple" style="margin-left: auto;margin-right: auto; width: 30%; max-width: 350px;" name="Enviar" value="Enviar">
+
+    </div>
+    </form>
     </div>
 <?php include 'Genericas/insereParticulas.php';?>
   </body>
