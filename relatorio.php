@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <title>Relatório</title>
+    <title>Relat&oacute;rio</title>
     <link rel="stylesheet" type="text/css" href="Css.css">
     <style type="text/css">
         body{
@@ -22,6 +22,8 @@
     <?php include 'Genericas/estilo.php'; ?>
 </head>
 <body class="bodyLaudo" style="background-color: <?php echo $_SESSION['corfundo']; ?>;">
+<div id="particles-js" ></div>
+<?php include 'Genericas/insereParticulas.php';?>
 <div style="text-align: center;">
     <img src="<?php echo $_SESSION['logo']; ?>"  class="headerImg" alt="Logo" onclick="volta()" style="cursor: pointer;">
     </div>
@@ -29,7 +31,7 @@
           <div class="wrapper wrapper--w680">
             <div class="card card-4">
               <div class="card-body">
-                <h2 class="title">Relatório</h2>
+                <h2 class="title">Relat&oacute;rio</h2>
                 <form method="POST">
                     <div style="width: 100%; text-align: center;">
                         <?php 
@@ -51,9 +53,10 @@
                                     ?><h2 class="nomeLista" style="font-size: 2.5em;"><?php echo $row['Nome'];?></h2><?php
                                     ?><h3 class="nuspLista"><?php echo $row['Num_usp'];?> </h3>
                                     <?php
-                                    ?><h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo'];?>;"> <?php echo $row['Quantidade_presenca'];?> presenças</h3>
+                                    ?><h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo'];?>;"> <?php echo $row['Quantidade_presenca'];?> presen&ccedil;as</h3>
                                     <?php
                                     ?><br>
+                        
 
                                     <h3 class="nuspLista" style="color: <?php echo $_SESSION['corfundo'];?>;">ID: <?php echo $row['ID_pessoa'];?></h3>
                                     <?php
@@ -61,7 +64,7 @@
                                     $sql = "SELECT * FROM saphira_subdivisoes as A INNER JOIN saphira_presenca as B on A.ID_subdivisoes = B.ID_subdivisoes WHERE ID_pessoa='".$row['ID_pessoa']."'";
                                     $result2 = mysqli_query($link, $sql);
                                     if (mysqli_num_rows($result2) >= 1) {
-                                        ?><h3 class="nomeLista">Presenças</h3><?php
+                                        ?><h3 class="nomeLista">Presen&ccedil;as</h3><?php
                                         while($row2 = mysqli_fetch_assoc($result2)) {
                                             ?><h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo'];?>; display: block;"><?php echo $row2['Nome'];?></h3><?php
                                         }

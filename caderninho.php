@@ -10,7 +10,7 @@ if (mysqli_num_rows($result) >= 1) {
 $sql = "SELECT * FROM saphira_subdivisoes WHERE ID_evento='".$_SESSION['idEvento']."'";
 $result = mysqli_query($link, $sql);
 if (mysqli_num_rows($result) >= 1) {
-  $row = mysqli_fetch_assoc($result)
+  $row = mysqli_fetch_assoc($result);
     ?><option value="<?php echo $row['ID_subdivisoes'];?>"><?php echo $row['Nome'];?></option><?php
 }
 
@@ -18,6 +18,9 @@ if (mysqli_num_rows($result) >= 1) {
     $result = mysqli_query($link, $sql);
     
 $sql="UPDATE `saphira_subdivisoes` SET `Quantidade_presentes`= Quantidade_presentes+1 WHERE `ID_subdivisoes` = '".$_SESSION['subdivisao']."'";
+    $result = mysqli_query($link, $sql);
+
+$sql="DELETE FROM `saphira_pag_evento` WHERE `ID_evento` = '".$_SESSION['subdivisao']."'";
     $result = mysqli_query($link, $sql);
 ?>
 

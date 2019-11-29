@@ -39,7 +39,7 @@
                         <div style="text-align: center;">
                             <div style="text-align: justify-all;">
                                <h3 class="nomeLista" style="font-weight: normal;"><?php echo $row2['Nome'];?></h3>
-                               <h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo']; ?>;"><?php echo $row['Quantidade_presenca'];?> presenças</h3>
+                               <h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo']; ?>;"><?php echo $row['Quantidade_presenca'];?> presen&ccedil;as</h3>
                             </div>
                         </div>
                         <?php

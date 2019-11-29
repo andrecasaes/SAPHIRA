@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <title>Configurações</title>
+    <title>Configura&ccedil;&otilde;es</title>
     <link rel="stylesheet" type="text/css" href="Css.css">
     <!-- Precisa para que os inputs não fiquem com cor diferente do fundo! -->
     <?php include 'Genericas/estilo.php'; ?>
@@ -27,7 +27,7 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
               <div class="card-body">
-                <h2 class="title">Configurações</h2>
+                <h2 class="title">Configura&ccedil;&otilde;es</h2>
                 <form method="POST">
                     <div style="text-align: center;">
                         <button type="submit" name="botao" value="Senha" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>; width: 80%;">Mudar senha</button>

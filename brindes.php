@@ -39,7 +39,6 @@ if (isset($_POST['brindes']) && isset($auxIdPessoa)){
     <title>Brindes</title>
     <link rel="stylesheet" type="text/css" href="Css.css">
     <!-- Precisa para que os inputs não fiquem com cor diferente do fundo! -->
-    <!-- Precisa para que os inputs não fiquem com cor diferente do fundo! -->
     <?php include 'Genericas/estilo.php'; ?>
 </head>
 <body class="bodyLaudo" style="background-color: <?php echo $_SESSION['corfundo']; ?>;">
@@ -68,7 +67,7 @@ if (isset($_POST['brindes']) && isset($auxIdPessoa)){
                     <h1 class="nomeLista" style="font-size: 2em;"><?php echo $nome;?></h1>
                     <h2 class="nuspLista" style="font-size: 1em;"><?php echo $nroUSP;?></h2>
                 <?php else: ?>
-                    <h1 class="BemVindo">Pessoa não cadastrada!</h1>
+                    <h1 class="BemVindo">Pessoa n&atilde;o cadastrada!</h1>
                 <?php endif ?>
                 <div style="text-align: center;">
                     <?php

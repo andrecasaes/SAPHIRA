@@ -83,9 +83,43 @@ if (isset($_POST['cod']) && isset($_POST['Enviar']) && !isset($_POST['nome'])) {
             ?><h1 class="BemVindo">Ops! <?php echo $row['Nome'];?> j&aacute; possui presen&ccedil;a.</h1><?php
         }
     }else{ //Se nao existir numero cadastrado!
-        ?><h1 class="BemVindo">Usu&aacute;rio n&atilde;o cadastrado!</h1><?php
-            
-        
+        ?>
+            <input type="hidden" name="nome" id="nome" class="nusp"/>
+            <script type="text/javascript">
+                var txt;
+                if (confirm("Numero USP nao encontrado! Cadastrar?")) {
+                var person = prompt("Digite o nome!");
+                    document.getElementById('nome').value = person;
+                    document.getElementById('cod').value = "<?php echo $_POST['cod'];?>";
+                    document.getElementById('form').submit();
+                }
+            </script>
+        <?php
+    }
+}else if (isset($_POST['nome'])) {
+    if ($_POST['nome'] == " ") {
+        ?><script type="text/javascript">console.log("Nome vazio!")</script><?php
+
+    }else{
+    $sql="INSERT INTO `saphira_pessoa`(`Num_palestras`, `Nome`, `Num_usp`) VALUES ('1','".$_POST['nome']."','".$_POST['cod']."')"; 
+        $result = mysqli_query($link, $sql);
+    $sql = "SELECT * FROM saphira_pessoa WHERE Num_usp='".$_POST['cod']."'";
+    $result = mysqli_query($link, $sql);
+        if (mysqli_num_rows($result) >= 1) {
+            $row = mysqli_fetch_assoc($result);
+            //Insere a presença
+            $sql="INSERT INTO `saphira_presenca`(`ID_pessoa`, `ID_subdivisoes`) VALUES ('".$row['ID_pessoa']."','".$_SESSION['subdivisao']."')"; 
+            $result = mysqli_query($link, $sql);
+            //Aumenta numero de pessoas na palestra
+            $sql="UPDATE `saphira_subdivisoes` SET `Quantidade_presentes`= Quantidade_presentes+1 WHERE `ID_subdivisoes` = '".$_SESSION['subdivisao']."'";
+            $result = mysqli_query($link, $sql);
+            //Aumenta a quantidade de presença no evento
+            $sql="INSERT INTO `saphira_quantidade_presenca`(`ID_pessoa`, `ID_evento`, `Quantidade_presenca`) VALUES ('".$row['ID_pessoa']."', '".$_SESSION['idEvento']."',1)";
+            $result = mysqli_query($link, $sql);
+            $aux = $row['Num_palestras']+1;
+            $_SESSION['JaEntraram'] = " <h3 class=\"nomeLista\">Nome: ".$row['Nome']."</h3> <h3 class=\"nuspLista\">".$_POST['cod']."</h3> <h3 class=\"palestrasLista\" style=\"color:".$_SESSION['corfundo'].";\">".$aux ." presen&ccedil;as</h3>".$_SESSION['JaEntraram'];
+            ?><h1 class="BemVindo">Usu&aacute;rio <?php echo $row['Nome'];?> cadastrado e inserido no sistema!</h1><?php
+        }
     }
 }
     echo $_SESSION['JaEntraram'];

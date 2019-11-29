@@ -1,9 +1,7 @@
-@font-face {
-  font-family: BX;
-  src: url(Fonte/BXComp.ttf);
-}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 body{
   overflow-x: hidden;
+  font-family: 'Open Sans', sans-serif;
 }
 #particles-js{
   position: fixed;
@@ -84,7 +82,6 @@ canvas.drawing, canvas.drawingBuffer {
 }
 h1{
   color: white;
-  font-family: 'BX';
   text-align: center;
 
 }
@@ -237,7 +234,8 @@ body {
 }
 
 .font-poppins {
-  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  /*font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;*/
 }
 
 .wrapper {

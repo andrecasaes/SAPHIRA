@@ -59,5 +59,7 @@
 <script src="jquery.js"></script>
 <script src="select2.js"></script>
 <script src="gloBal.js"></script>
+<?php include 'Genericas/voltar.php'; ?>
+
   </body>
 </html>

@@ -3,9 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/logo.png">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="Css.css">
@@ -36,7 +34,7 @@
                           if (mysqli_num_rows($result) >= 1) {
                             while($row = mysqli_fetch_assoc($result)) {
                               if($row['Nome'] == "Sorteio") {
-                                  ?><input type="button" class="btn btn--radius-2" onclick="location.href='sorteioPalestra';" value="<?php echo $row['Nome'];?>" style="background-color: <?php echo $_SESSION['corfundo']?>;"/><?php
+                                  ?><input type="button" class="btn btn--radius-2" onclick="location.href='sorteioPalestra.php';" value="<?php echo $row['Nome'];?>" style="background-color: <?php echo $_SESSION['corfundo']?>;"/><?php
                               } else {
                                   ?><input type="button" class="btn btn--radius-2" onclick="location.href='<?php echo $row['Endereco'];?>';" value="<?php echo $row['Nome'];?>" style="background-color: <?php echo $_SESSION['corfundo']?>;"/><?php
                               }

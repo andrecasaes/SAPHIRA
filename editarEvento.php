@@ -8,16 +8,19 @@ if(isset($_POST["Enviar"])) {
     } else{
       $parti = 1;
     }
-    $sql="INSERT INTO `saphira_evento`(`Nome`, `Cores`, `Nome_logo`,`Particula`) VALUES ('".$_POST["nome"]."','".$_POST['cor']."','a','".$parti."')"; 
+    $sql="UPDATE `saphira_evento` SET `ID_evento`='".$_POST["nome"]."',`Cores`='".$_POST['cor']."',`Particula`= ".$parti." WHERE ID_evento='".$_POST['ID_evento']."'";
     $result = mysqli_query($link, $sql);
 
-    $sql = "SELECT * FROM saphira_evento ORDER BY ID_evento DESC LIMIT 1";
+    $sql="DELETE FROM `saphira_pag_evento` WHERE `ID_evento` = '".$_POST['ID_evento']."'";
     $result = mysqli_query($link, $sql);
-    if (mysqli_num_rows($result) >= 1) {
-      $row = mysqli_fetch_assoc($result);
-      $novoID = $row['ID_evento'];
-    }
+    
     foreach($_POST['paginas'] as $num){
+      $sql = "SELECT * FROM saphira_subdivisoes WHERE ID_evento='".$_SESSION['idEvento']."'";
+      $result = mysqli_query($link, $sql);
+      if (mysqli_num_rows($result) >= 1) {
+        $row = mysqli_fetch_assoc($result);
+          ?><option value="<?php echo $row['ID_subdivisoes'];?>"><?php echo $row['Nome'];?></option><?php
+      }
       $sql="INSERT INTO `saphira_pag_evento`(`ID_pagina`, `ID_evento`) VALUES ('".$num."','".$novoID."')"; 
       $result = mysqli_query($link, $sql);
     }
@@ -82,6 +85,7 @@ if ($uploadOk == 0) {
   <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
   <title>Cadastro Usuario</title>
+    <link href="select2.css" rel="stylesheet" media="all">
   <link rel="stylesheet" type="text/css" href="Css.css">
   <!-- Precisa para que os inputs não fiquem com cor diferente do fundo! -->
   <?php include 'Genericas/estilo.php'; ?>
@@ -97,7 +101,7 @@ if ($uploadOk == 0) {
       <div class="wrapper wrapper--w680">
         <div class="card card-4">
           <div class="card-body">
-            <h2 class="title">Cadastrar Evento</h2>
+            <h2 class="title">Editar dados do evento</h2>
             <form method="POST">
               <div style="text-align: center;">
                 <style type="text/css">
@@ -105,11 +109,35 @@ if ($uploadOk == 0) {
                     background: <?php echo $_SESSION['corfundo']; ?>;
                   }
                 </style>
-                <h1 class="BemVindo">Dados basicos</h1>
-
-                <label class="nuspLista">Nome do evento</label>
-                <input type="text" id="nome" name="nome" tabindex="1" class="input--style-4 inputTextoBonito" style="background-color: #dedede;" placeholder="Nome do Evento">
-
+                <div class="rs-select2 js-select-simple select--no-search">
+                    <select name="ID_evento" style="width: 25%; margin-bottom: 25px;" class="select" onchange="submit();">
+                <?php 
+                $sql = "SELECT Nome, ID_evento FROM saphira_evento";
+                $result = mysqli_query($link, $sql);
+                if (mysqli_num_rows($result) >= 1) {
+                  while($row = mysqli_fetch_assoc($result)) {
+                    ?><option value="<?php echo $row['ID_evento'];?>"><?php echo $row['Nome'];?></option><?php
+                  }
+                }
+                ?>
+                    </select>
+                    <div class="select-dropdown"></div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                <?php if (!isset($_POST['ID_evento'])): ?>
+                  <label class="nuspLista">Selecione o evento que deseja editar!</label><br>
+                  <!-- <h1 class="BemVindo">Dados basicos</h1> -->
+                <?php else: ?>
+                <?php 
+                $sql = "SELECT Nome, ID_evento FROM saphira_evento where ID_evento = '".$_POST['ID_evento']."'";
+                $result = mysqli_query($link, $sql);
+                if (mysqli_num_rows($result) >= 1) {
+                  while($row = mysqli_fetch_assoc($result)) {
+                    ?><h2 class="BemVindo"><?php echo $row['Nome'] ?></h2></option><?php
+                  }
+                }
+                ?>
                 <label class="nuspLista">Selecione as paginas disponiveis</label><br>
                 <div style="text-align: left;">
                 <?php 
@@ -117,9 +145,16 @@ if ($uploadOk == 0) {
                 $result = mysqli_query($link, $sql);
                 if (mysqli_num_rows($result) >= 1) {
                   while($row = mysqli_fetch_assoc($result)) {
+                    $sql = "SELECT * FROM saphira_pag_evento WHERE ID_evento='".$_POST['ID_evento']."' and ID_pagina = '".$row['ID_pagina']."'";
+                    $result2 = mysqli_query($link, $sql);
+                    if (mysqli_num_rows($result2) >= 1) {
+                      $tem = 'checked';
+                    }else{
+                      $tem = '';
+                    }
                     ?>
                     <label class="radio-container"><?php echo $row['Nome'] ?>
-                      <input type="checkbox" name="paginas[]" value="<?php echo $row['ID_pagina'] ?>">
+                      <input type="checkbox" name="paginas[]" value="<?php echo $row['ID_pagina'] ?>" <?php echo $tem ?>>
                       <span class="checkmark"></span>
                     </label><br>
                     <?php
@@ -129,24 +164,42 @@ if ($uploadOk == 0) {
                 </div>
                 <h1 class="BemVindo">Personalização</h1>
                 <label class="nuspLista">Selecione a cor do sistema</label>
-                <input type="color" class="input--style-4 inputTextoBonito" name="cor">
+                <?php 
+                $sql = "SELECT * FROM saphira_evento WHERE ID_evento='".$_POST['ID_evento']."'";
+                $result = mysqli_query($link, $sql);
+                if (mysqli_num_rows($result) >= 1) {
+                  $row = mysqli_fetch_assoc($result);
+                  $cor = $row['Cores'];
+                  if ($row['Particula'] = "1") {
+                    $parti = "checked";
+                  }else{
+                    $parti = "";
+                  }
+                }
+                ?>
+                <input type="color" class="input--style-4 inputTextoBonito" name="cor" value="<?php echo $cor ?>">
 
                 <label class="nuspLista">Utilizar particulas</label><br>
                 <label class="radio-container">Sim
-                      <input type="checkbox" name="particulas" value="1">
+                      <input type="checkbox" name="particulas" value="1" <?php echo $parti ?>>
                       <span class="checkmark"></span>
                 </label>
                 <br>
                 <label class="nuspLista">Envie o logo do evento</label>
                 <input type="file" class="input--style-4 inputTextoBonito" id="fileToUpload" name="fileToUpload" style="width: 70%;">
                 <input type="submit" name="Enviar" tabindex="3" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>; width: 80%;" value="Enviar">                        
+                <?php endif ?>
+              </div>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-    <?php include 'Genericas/voltar.php'; ?>
-  </body>
+<script src="jquery.js"></script>
+<script src="select2.js"></script>
+<script src="gloBal.js"></script>
+<?php include 'Genericas/voltar.php'; ?>
+</body>
 </html>
 

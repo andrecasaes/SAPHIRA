@@ -3,9 +3,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/logo.png">
+    <!-- <meta charset="UTF-8"> -->
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="Css.css">
@@ -28,7 +27,7 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
-                    <h2 class="title">Presença</h2>
+                    <h2 class="title">Presen&ccedil;a</h2>
                     <form method="POST" action="leitura.php" id="form">
                     <div class="input-group" style="margin-bottom: 80px;">
                       <div class="rs-select2 js-select-simple select--no-search">
@@ -59,5 +58,6 @@
 <script src="jquery.js"></script>
 <script src="select2.js"></script>
 <script src="gloBal.js"></script>
+<?php include 'Genericas/voltar.php'; ?>
   </body>
 </html>

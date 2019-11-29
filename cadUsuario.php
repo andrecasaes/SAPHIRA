@@ -19,16 +19,16 @@ if ((isset($_POST["Enviar"]) && !(empty($_POST["Login"]) || empty($_POST["Senha"
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/logo.png">
     <meta name="theme-color" content="#ffffff">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <title>Cadastro Usuario</title>
+    <link href="select2.css" rel="stylesheet" media="all">
     <link rel="stylesheet" type="text/css" href="Css.css">
+
     <!-- Precisa para que os inputs não fiquem com cor diferente do fundo! -->
     <?php include 'Genericas/estilo.php'; ?>
 </head>
@@ -38,54 +38,47 @@ if ((isset($_POST["Enviar"]) && !(empty($_POST["Login"]) || empty($_POST["Senha"
 <?php include 'Genericas/insereParticulas.php';?>
     <div style="text-align: center;">
       <img src="<?php echo $_SESSION['logo']; ?>"  onclick="volta()" class="headerImg" alt="logo" style="cursor: pointer;">
-      <h1 class="h1SelePales">Cadastro de Usuario</h1>
     </div>
-    <div class="container">
-        <p>
-            <label>Login</label>
-            <input type="text" name="Login" placeholder="Login">
-        </p>
-        <p> 
-            <label>Senha</label>
-            <input type="text" name="Senha" placeholder="Senha do Usuario">
-        </p>
-        <p> 
-            <label>Evento</label>
-            <select name="ID_evento">
-        <?php 
-        $sql = "SELECT Nome, ID_evento FROM saphira_evento";
-        $result = mysqli_query($link, $sql);
-        if (mysqli_num_rows($result) >= 1) {
-          while($row = mysqli_fetch_assoc($result)) {
-            ?><option value="<?php echo $row['ID_evento'];?>"><?php echo $row['Nome'];?></option><?php
-          }
-        }
-        ?>
-            </select>
-        </p>
-        <p>
-            <label></label>
-            <input type="submit" name="Enviar" value="Enviar">
-        </p>
+     <div class="page-wrapper font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">Cadastro de Usuario</h2>
+                    <form method="POST" id="form">
+                    <div class="input-group" style="margin-bottom: 80px;">
+                        <div style="text-align: center;" >
+                            <label class="nuspLista" style="display: block;">Login</label>
+                            <input type="text" name="Login" placeholder="Login" class="input--style-4 inputTextoBonito">
+                            <label class="nuspLista" style="display: block;">Senha</label>
+                            <input type="text" name="Senha" placeholder="Senha do Usuario" class="input--style-4 inputTextoBonito">
+                            <label class="nuspLista" style="display: block;">Evento</label>
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select name="ID_evento" style="width: 25%; margin-bottom: 25px;" class="select">
+                            <?php 
+                            $sql = "SELECT Nome, ID_evento FROM saphira_evento";
+                            $result = mysqli_query($link, $sql);
+                            if (mysqli_num_rows($result) >= 1) {
+                              while($row = mysqli_fetch_assoc($result)) {
+                                ?><option value="<?php echo $row['ID_evento'];?>"><?php echo $row['Nome'];?></option><?php
+                              }
+                            }
+                            ?>
+                                </select>
+                                <div class="select-dropdown"></div>
+                                </div>
+                            </div>
+                            </div>
+                        <input type="submit" name="Enviar" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>;" value="Selecionar"/>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 <?php include 'Genericas/voltar.php'; ?>
+<script src="jquery.js"></script>
+<script src="select2.js"></script>
+<script src="gloBal.js"></script>
 </body>
 </html>
-<style>
-.container { 
-    display: table; 
-}
-p { 
-    display: table-row;
-    text-align: left;
-}
-label { 
-    display: table-cell; 
-    text-align: right;
-}
-input,select { 
-    display: table-cell; 
-    margin-bottom: 15px;
-}
-</style>
+
 
