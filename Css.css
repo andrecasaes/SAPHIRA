@@ -3,6 +3,11 @@ body{
   overflow-x: hidden;
   font-family: 'Open Sans', sans-serif;
 }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 #particles-js{
   position: fixed;
   width: 100%;

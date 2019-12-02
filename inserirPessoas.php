@@ -17,9 +17,9 @@
 	  <th><p class="nuspLista">E-mail</p></th>
 	</tr>
 	<tr>
-	  <td><textarea name="Nro" autocomplete="off" autofocus class="input--style-4 inputTextoBonito" style="background-color: #dedede; width: 70%;"></textarea></td>
-	  <td><textarea name="Nomes" autocomplete="off" class="input--style-4 inputTextoBonito" style="background-color: #dedede; width: 70%;"></textarea></td>
-	  <td><textarea name="Email" autocomplete="off" class="input--style-4 inputTextoBonito" style="background-color: #dedede; width: 70%;"></textarea></td>
+	  <td><textarea name="Nro" autocomplete="off" autofocus class="input--style-4 inputTextoBonito" style="background-color: #dedede; width: 70%;  padding-top: 15px; line-height: unset;"></textarea></td>
+	  <td><textarea name="Nomes" autocomplete="off" class="input--style-4 inputTextoBonito" style="background-color: #dedede; width: 70%;  padding-top: 15px; line-height: unset;"></textarea></td>
+	  <td><textarea name="Email" autocomplete="off" class="input--style-4 inputTextoBonito" style="background-color: #dedede; width: 70%;  padding-top: 15px; line-height: unset;"></textarea></td>
 	</tr>
 </table>
 <input type="submit" name="Inserir" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>; width: 80%;" value="Inserir">

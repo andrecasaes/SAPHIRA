@@ -10,9 +10,7 @@ if (isset($_POST['subdivisao'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/logo.png">
     <meta name="theme-color" content="#ffffff">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,9 +54,9 @@ if (isset($_POST['subdivisao'])) {
         <?php
 if (isset($_POST['cod']) && isset($_POST['Enviar']) && !isset($_POST['nome'])) {
     $sql = "SELECT * FROM saphira_pessoa WHERE Num_usp='".$_POST['cod']."'";
-        $result = mysqli_query($link, $sql);
-    if (mysqli_num_rows($result) >= 1) { // Verifica se a pessoa existe
-        $row = mysqli_fetch_assoc($result);
+        $result2 = mysqli_query($link, $sql);
+    if (mysqli_num_rows($result2) >= 1) { // Verifica se a pessoa existe
+        $row = mysqli_fetch_assoc($result2);
 
         $sql = "SELECT * FROM saphira_presenca WHERE ID_pessoa='".$row['ID_pessoa']."' AND ID_subdivisoes='".$_SESSION['subdivisao']."'";
         $result = mysqli_query($link, $sql);
@@ -66,16 +64,23 @@ if (isset($_POST['cod']) && isset($_POST['Enviar']) && !isset($_POST['nome'])) {
             //Insere a presença
             $sql="INSERT INTO `saphira_presenca`(`ID_pessoa`, `ID_subdivisoes`) VALUES ('".$row['ID_pessoa']."','".$_SESSION['subdivisao']."')"; 
             $result = mysqli_query($link, $sql);
-            //Aumenta o numero de palestras presentes na pessoa
-            $sql="UPDATE `saphira_pessoa` SET `Num_palestras`= Num_palestras+1 WHERE `ID_pessoa` = '".$row['ID_pessoa']."'"; 
-            $result = mysqli_query($link, $sql);
+
             //Aumenta a quantidade de presença no evento
-            $sql="UPDATE `saphira_quantidade_presenca` SET `Quantidade_presenca`= Quantidade_presenca+1 WHERE `ID_pessoa` = '".$row['ID_pessoa']."' and `ID_evento` = '".$_SESSION['idEvento']."'";
-            $result = mysqli_query($link, $sql);
+            $sql = "SELECT * FROM saphira_quantidade_presenca WHERE ID_evento='".$_SESSION['idEvento']."' and ID_pessoa = '".$row['ID_pessoa']."'";
+                $result = mysqli_query($link, $sql);
+            if (mysqli_num_rows($result) >= 1) {
+                $row2 = mysqli_fetch_assoc($result);
+                $aux = $row2['Quantidade_presenca']+1; 
+                $sql="UPDATE `saphira_quantidade_presenca` SET `Quantidade_presenca`= ".$aux." WHERE `ID_pessoa` = '".$row['ID_pessoa']."' and `ID_evento` = '".$_SESSION['idEvento']."'";
+            }else{
+                //Primeira palestra da pessoa no evento!
+                $sql="INSERT INTO `saphira_quantidade_presenca`(`ID_pessoa`, `ID_evento`, `Quantidade_presenca`) VALUES ('".$row['ID_pessoa']."','".$_SESSION['idEvento']."','1')"; 
+                $result = mysqli_query($link, $sql);
+                $aux = 1; 
+            }
             //Aumenta numero de pessoas na palestra
             $sql="UPDATE `saphira_subdivisoes` SET `Quantidade_presentes`= Quantidade_presentes+1 WHERE `ID_subdivisoes` = '".$_SESSION['subdivisao']."'";
             $result = mysqli_query($link, $sql);
-            $aux = $row['Num_palestras']+1;
             $_SESSION['JaEntraram'] = " <h3 class=\"nomeLista\">Nome: ".$row['Nome']."</h3> <h3 class=\"nuspLista\">".$_POST['cod']."</h3> <h3 class=\"palestrasLista\" style=\"color:".$_SESSION['corfundo'].";\">".$aux ." presen&ccedil;as</h3>".$_SESSION['JaEntraram'];
             ?><h1 class="BemVindo">Bom Evento, <?php echo $row['Nome'];?>!</h1><?php
 

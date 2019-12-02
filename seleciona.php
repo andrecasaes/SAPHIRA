@@ -19,25 +19,19 @@
       <img src="<?php echo $_SESSION['logo'];?>"  class="headerImg" alt="logo" onclick="volta()" style="cursor: pointer;">
     </div>
 <?php include 'Genericas/insereParticulas.php';?>
-
 <div class="page-wrapper font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Menu</h2>
-                    <form method="POST" action="leitura.php" id="form">
-                        <input type="button" class="btn btn--radius-2" style="background-color: <?php echo $_SESSION['corfundo']?>;" onclick="location.href='presenca.php';" value="Presenca"/>
+                    <form method="POST" id="form">
                         <?php
                           //Exibe os botões para as paginas escolhidas
                           $sql = "SELECT * FROM saphira_pag_evento as A inner Join saphira_pagina as B on A.ID_pagina = B.ID_pagina WHERE ID_evento='".$_SESSION['idEvento']."'";
                           $result = mysqli_query($link, $sql);
                           if (mysqli_num_rows($result) >= 1) {
                             while($row = mysqli_fetch_assoc($result)) {
-                              if($row['Nome'] == "Sorteio") {
-                                  ?><input type="button" class="btn btn--radius-2" onclick="location.href='sorteioPalestra.php';" value="<?php echo $row['Nome'];?>" style="background-color: <?php echo $_SESSION['corfundo']?>;"/><?php
-                              } else {
                                   ?><input type="button" class="btn btn--radius-2" onclick="location.href='<?php echo $row['Endereco'];?>';" value="<?php echo $row['Nome'];?>" style="background-color: <?php echo $_SESSION['corfundo']?>;"/><?php
-                              }
                             }
                           }
                         ?>
@@ -46,6 +40,5 @@
             </div>
         </div>
     </div>
-
   </body>
 </html>

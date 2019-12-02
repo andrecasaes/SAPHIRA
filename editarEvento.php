@@ -2,33 +2,29 @@
 <?php include 'Genericas/conecta.php'; ?>
 <?php
 if(isset($_POST["Enviar"])) {
-  if (!empty($_POST["nome"]) && isset($_FILES["fileToUpload"])) {
+  if (!empty($_POST["ID_eventoAux"])) {
+    $IDaux = $_POST["ID_eventoAux"];
     if (empty($_POST['particulas'])) {
       $parti = 0;
     } else{
       $parti = 1;
     }
-    $sql="UPDATE `saphira_evento` SET `ID_evento`='".$_POST["nome"]."',`Cores`='".$_POST['cor']."',`Particula`= ".$parti." WHERE ID_evento='".$_POST['ID_evento']."'";
+    $sql="UPDATE `saphira_evento` SET `Cores`='".$_POST['cor']."',`Particula`= ".$parti." WHERE ID_evento='".$IDaux."'";
     $result = mysqli_query($link, $sql);
 
-    $sql="DELETE FROM `saphira_pag_evento` WHERE `ID_evento` = '".$_POST['ID_evento']."'";
+    $sql="DELETE FROM `saphira_pag_evento` WHERE `ID_evento` = '".$IDaux."'";
     $result = mysqli_query($link, $sql);
     
     foreach($_POST['paginas'] as $num){
-      $sql = "SELECT * FROM saphira_subdivisoes WHERE ID_evento='".$_SESSION['idEvento']."'";
-      $result = mysqli_query($link, $sql);
-      if (mysqli_num_rows($result) >= 1) {
-        $row = mysqli_fetch_assoc($result);
-          ?><option value="<?php echo $row['ID_subdivisoes'];?>"><?php echo $row['Nome'];?></option><?php
-      }
-      $sql="INSERT INTO `saphira_pag_evento`(`ID_pagina`, `ID_evento`) VALUES ('".$num."','".$novoID."')"; 
+      $sql="INSERT INTO `saphira_pag_evento`(`ID_pagina`, `ID_evento`) VALUES ('".$num."','".$IDaux."')"; 
       $result = mysqli_query($link, $sql);
     }
-
+$uploadOk = 1;
+if (file_exists($_FILES["fileToUpload"]["tmp_name"])) {
+  # code...
 $target_dir = "Logos/";
 $imageFileType = strtolower(pathinfo($target_dir . basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
-$target_file = $target_dir . $novoID .".".$imageFileType ;
-$uploadOk = 1;
+$target_file = $target_dir . $IDaux .".".$imageFileType ;
 // Check if image file is a actual image or fake image
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
@@ -39,10 +35,10 @@ $uploadOk = 1;
         $uploadOk = 0;
     }
 // Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
+//if (file_exists($target_file)) {
+//    echo "Sorry, file already exists.";
+//    $uploadOk = 0;
+//}
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000) {
     echo "Sorry, your file is too large.";
@@ -54,17 +50,20 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
+}
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
+    echo "Descupe, o seu arquivo nao foi enviado =C";
 // if everything is ok, try to upload file
 } else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        $sql="UPDATE `saphira_evento` SET `Nome_logo`= '".$novoID .".".$imageFileType."' WHERE `ID_evento` = '".$novoID."'";
+    if (file_exists($_FILES["fileToUpload"]["tmp_name"])) {
+      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        $sql="UPDATE `saphira_evento` SET `Nome_logo`= '".$IDaux .".".$imageFileType."' WHERE `ID_evento` = '".$IDaux."'";
         $result = mysqli_query($link, $sql);
         ?><script type="text/javascript">alert("Evento cadastrado com sucesso!")</script><?php
+      }
     } else {
-        ?><script type="text/javascript">alert("Evento cadastrado com sucesso! Porem a imagem nao foi enviada =(")</script><?php
+        ?><script type="text/javascript">alert("Evento cadastrado com sucesso! Porem a imagem nao foi enviada")</script><?php
 
     }
 }
@@ -129,6 +128,7 @@ if ($uploadOk == 0) {
                   <label class="nuspLista">Selecione o evento que deseja editar!</label><br>
                   <!-- <h1 class="BemVindo">Dados basicos</h1> -->
                 <?php else: ?>
+                  <input type="hidden" name="ID_eventoAux" value="<?php echo $_POST['ID_evento'] ?>">
                 <?php 
                 $sql = "SELECT Nome, ID_evento FROM saphira_evento where ID_evento = '".$_POST['ID_evento']."'";
                 $result = mysqli_query($link, $sql);

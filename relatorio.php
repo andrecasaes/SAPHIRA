@@ -3,9 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/logo.png">
     <meta name="theme-color" content="#ffffff">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,9 +54,18 @@
                                     ?><h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo'];?>;"> <?php echo $row['Quantidade_presenca'];?> presen&ccedil;as</h3>
                                     <?php
                                     ?><br>
-                        
-
                                     <h3 class="nuspLista" style="color: <?php echo $_SESSION['corfundo'];?>;">ID: <?php echo $row['ID_pessoa'];?></h3>
+                                    <?php
+
+                                    $sql = "SELECT * FROM saphira_quantidade_presenca as A INNER JOIN saphira_pessoa as B on A.ID_pessoa = B.ID_pessoa INNER JOIN saphira_evento as C on A.ID_evento=C.ID_evento WHERE A.ID_pessoa='".$row['ID_pessoa']."'";
+                                    $result2 = mysqli_query($link, $sql);
+                                    if (mysqli_num_rows($result2) >= 1) {
+                                        ?><h3 class="nomeLista">Eventos</h3><?php
+                                        while($row2 = mysqli_fetch_assoc($result2)) {
+                                            ?><h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo'];?>; display: block;"><?php echo $row2['Nome'];?></h3><?php
+                                        }
+                                    }
+                                    ?>
                                     <?php
 
                                     $sql = "SELECT * FROM saphira_subdivisoes as A INNER JOIN saphira_presenca as B on A.ID_subdivisoes = B.ID_subdivisoes WHERE ID_pessoa='".$row['ID_pessoa']."'";
