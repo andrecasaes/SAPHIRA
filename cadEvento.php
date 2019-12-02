@@ -126,7 +126,7 @@ if ($uploadOk == 0) {
                 }
                 ?>
                 </div>
-                <h1 class="BemVindo">Personalização</h1>
+                <h1 class="BemVindo">Personaliza&ccedil;&atilde;o</h1>
                 <label class="nuspLista">Selecione a cor do sistema</label>
                 <input type="color" class="input--style-4 inputTextoBonito" name="cor">
 

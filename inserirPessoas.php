@@ -12,7 +12,7 @@
 <h1 class="BemVindo">Cadastrar pessoas</h1>
 <table width="100%">
 	<tr>
-	  <th><p class="nuspLista">Número USP/RG</p></th>
+	  <th><p class="nuspLista">N&uacute;mero USP/RG</p></th>
 	  <th><p class="nuspLista">Nome</p></th>
 	  <th><p class="nuspLista">E-mail</p></th>
 	</tr>

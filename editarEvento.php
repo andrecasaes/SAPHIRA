@@ -75,14 +75,14 @@ if ($uploadOk == 0) {
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/logo.png">
   <meta name="theme-color" content="#ffffff">
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
   <title>Cadastro Usuario</title>
     <link href="select2.css" rel="stylesheet" media="all">
   <link rel="stylesheet" type="text/css" href="Css.css">
@@ -162,7 +162,7 @@ if ($uploadOk == 0) {
                 }
                 ?>
                 </div>
-                <h1 class="BemVindo">Personalização</h1>
+                <h1 class="BemVindo">Personaliza&ccedil;&atilde;o</h1>
                 <label class="nuspLista">Selecione a cor do sistema</label>
                 <?php 
                 $sql = "SELECT * FROM saphira_evento WHERE ID_evento='".$_POST['ID_evento']."'";

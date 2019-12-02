@@ -49,9 +49,8 @@
                                 if (mysqli_num_rows($result) >= 1) {
                                   $row = mysqli_fetch_assoc($result)
                                     ?><h2 class="nomeLista" style="font-size: 2.5em;"><?php echo $row['Nome'];?></h2><?php
-                                    ?><h3 class="nuspLista"><?php echo $row['Num_usp'];?> </h3>
-                                    <?php
-                                    ?><h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo'];?>;"> <?php echo $row['Quantidade_presenca'];?> presen&ccedil;as</h3>
+                                    ?><?php
+                                    ?><h3 class="palestrasLista" style="color: <?php echo $_SESSION['corfundo'];?>;"> Numero USP: <?php echo $row['Num_usp'];?></h3>
                                     <?php
                                     ?><br>
                                     <h3 class="nuspLista" style="color: <?php echo $_SESSION['corfundo'];?>;">ID: <?php echo $row['ID_pessoa'];?></h3>
