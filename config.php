@@ -1,6 +1,5 @@
 <?php include 'Genericas/logado.php'; ?>
 <?php include 'Genericas/conecta.php'; ?>
-
 <!DOCTYPE html>
 <html>
 <head>

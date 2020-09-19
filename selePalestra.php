@@ -51,6 +51,7 @@ switch ($_GET['pagi']) {
                     <div class="input-group" style="margin-bottom: 80px;">
                       <div class="rs-select2 js-select-simple select--no-search">
                       <select name="subdivisao" style="width: 25%;" class="select">
+                        <option value="*">Todas</option>
                         <?php
                           //Pega do banco todas as etapas e exibe em um select
                           $sql = "SELECT * FROM saphira_subdivisoes WHERE ID_evento='".$_SESSION['idEvento']."'";

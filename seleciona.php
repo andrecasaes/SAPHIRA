@@ -16,7 +16,7 @@
   <body class="bodyLaudo" style="background-color: <?php echo $_SESSION['corfundo']?>;">
     <div id="particles-js" ></div>
     <div style="text-align: center;">
-      <img src="<?php echo $_SESSION['logo'];?>"  class="headerImg" alt="logo" onclick="volta()" style="cursor: pointer;">
+      <img src="<?php echo $_SESSION['logo'];?>"  class="headerImg" alt="logo" onclick="deslogar()" style="cursor: pointer;">
     </div>
 <?php include 'Genericas/insereParticulas.php';?>
 <div class="page-wrapper font-poppins">
@@ -40,5 +40,6 @@
             </div>
         </div>
     </div>
+    <?php include 'Genericas/deslogar.php'; ?>
   </body>
 </html>

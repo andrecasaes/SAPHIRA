@@ -1,5 +1,7 @@
 <?php include 'Genericas/conecta.php'; ?>
 <?php
+// session_destroy();
+
 session_start();
 $_SESSION['Logado'] = false;
 if (isset($_POST["Enviar"])) {
@@ -42,7 +44,7 @@ if (isset($_POST["Enviar"])) {
 </head>
   <body class="bodyLaudo" style="background-color: #111;">
     <div id="particles-js" ></div>
-    <div align="center">
+    <div style="text-align: center;">
       <img src="logo.png" id = "logo" alt="logo da SAPHIRA">
       <?php
       //Em caso de erro o porgrama retorna para a tela de login e exibe o erro para o usuario =)
@@ -60,8 +62,9 @@ if (isset($_POST["Enviar"])) {
       <input class=".input--style-4 inputTextoBonito" style="max-width: 350px;" type="password" name="Senha" placeholder="Senha">
 
       <input type="hidden" name="Erro">
-        
       <input type="submit" class="btn btn--radius-2 btn--purple" style="margin-left: auto;margin-right: auto; width: 30%; max-width: 350px;" name="Enviar" value="Enviar">
+      <br>
+      <input type="button" class="btn btn--radius-2 btn--purple"  style="margin-left: auto;margin-right: auto; width: 30%; max-width: 350px;" onclick="window.location='loginParticipante.php';" value="Login Participante">
 
     </div>
     </form>
